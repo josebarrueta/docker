@@ -7,11 +7,9 @@ ARG GID=$UID
 ARG KAFKA_FILE=kafka_2.13-3.3.1.tgz
 ARG KAFKA_SHA256="18ad8a365fb111de249d3bb8bf3c96cd1af060ec8fb3e3d1fc4a7ae10d9042de"
 
-ENV KAFKA_HOME /opt/signaldata/kafka
+ENV KAFKA_HOME /usr/local/kafka
 
 WORKDIR $KAFKA_HOME
-
-COPY entrypoint.sh /usr/local/bin
 
 # Download kafka tar file, extract it, create new user/group, then give ownership of 
 # the kakfa files to the new user
@@ -23,10 +21,12 @@ RUN curl -LJO https://dlcdn.apache.org/kafka/3.3.1/$KAFKA_FILE \
     && groupadd -g $GID $GROUPNAME \
     && useradd -u $UID -g $GID $USERNAME \
     && chown -R $USERNAME:$GROUPNAME . \
-    && chown -R $USERNAME:$GROUPNAME  /usr/local/bin/entrypoint.sh \
-    && chmod +x /usr/local/bin/entrypoint.sh \
     && yum clean all
 
+COPY entrypoint.sh /usr/local/bin
+
+RUN chown $USERNAME:$GROUPNAME /usr/local/bin/entrypoint.sh \
+    && chmod +x /usr/local/bin/entrypoint.sh   
 
 USER $USERNAME
 
