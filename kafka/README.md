@@ -16,3 +16,30 @@ To build the image it is needed to run the `docker build` command, for example:
 ```shell
 docker build . -t arm64v8/kafka:<version> 
 ```
+
+
+The server runs with a defined `kafka` user. 
+
+
+# Running the docker container
+
+This is an example of how to use the image in a `docker-compose` file.
+
+```
+version: '3.7'
+
+services:
+  kafka:
+    image: arm64v8/kafka:<version>
+    hostname: kafka
+    environment:
+      KAFKA_CLUSTER_ID: hXXhoCVLSzm8HZ_1KUlX3Q
+      KAFKA_SERVER_NODE_ID: 1
+      KAFKA_SERVER_PROCESS_ROLES: broker,controller
+      KAFKA_SERVER_DEFAULT_PARTITIONS: 1
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    volumes:
+      - ${HOME}/containers/kafka/volume_data:/var/log/kafka    
+```
