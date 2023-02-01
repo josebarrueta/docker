@@ -32,7 +32,7 @@ RUN curl -LJO $APACHE_DOWNLOAD_MIRROR/kafka/$KAFKA_VERSION/$KAFKA_FILE \
     && chown -R $USERNAME:$GROUPNAME $KAFKA_HOME \
     && chown $USERNAME:$GROUPNAME /usr/local/bin/entrypoint.sh \
     && chmod +x /usr/local/bin/entrypoint.sh \
-    && rm $KAFKA_FILE && rm -rf $KAFKA_HOME/site-docs && rm -rf $KAFKA_HOME/config
+    && rm $KAFKA_FILE && rm -rf $KAFKA_HOME/site-docs && rm -rf $KAFKA_HOME/config && rm -rf $KAFKA_HOME/bin/windows
     
 WORKDIR $KAFKA_HOME
 USER $USERNAME

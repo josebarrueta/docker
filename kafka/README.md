@@ -14,7 +14,7 @@ To build an image you need to install [docker](https://docs.docker.com/desktop/)
 To build the image it is needed to run the `docker build` command, for example:
 
 ```shell
-docker build . -t arm64v8/kafka:<version> 
+docker build . -t josebarrueta/kafka:<version> 
 ```
 
 
@@ -28,18 +28,44 @@ This is an example of how to use the image in a `docker-compose` file.
 ```
 version: '3.7'
 
-services:
-  kafka:
-    image: arm64v8/kafka:<version>
-    hostname: kafka
+services
+  kafka_1:
+    container_name: kafka_1
+    image: josebarrueta/kafka:3.3.2
+    hostname: kafka_1
+    restart: always
     environment:
       KAFKA_CLUSTER_ID: hXXhoCVLSzm8HZ_1KUlX3Q
       KAFKA_SERVER_NODE_ID: 1
       KAFKA_SERVER_PROCESS_ROLES: broker,controller
-      KAFKA_SERVER_DEFAULT_PARTITIONS: 1
+      KAFKA_SERVER_DEFAULT_PARTITIONS: 2
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka_1:9093,2@kafka_2:9093
     ports:
       - "9092:9092"
       - "9093:9093"
     volumes:
-      - ${HOME}/containers/kafka/volume_data:/var/log/kafka    
+      - ./kafka/1/volume_data:/var/log/kafka
+    networks:
+     - kafka_network
+  kafka_2:
+    container_name: kafka_2
+    image: josebarrueta/kafka:3.3.2
+    hostname: kafka_2
+    restart: always
+    environment:
+      KAFKA_CLUSTER_ID: hXXhoCVLSzm8HZ_1KUlX3Q
+      KAFKA_SERVER_NODE_ID: 2
+      KAFKA_SERVER_PROCESS_ROLES: broker,controller
+      KAFKA_SERVER_DEFAULT_PARTITIONS: 2
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka_1:9093,2@kafka_2:9093
+    ports:
+      - "9094:9092"
+      - "9095:9093"
+    volumes:
+      - ./kafka/2/volume_data:/var/log/kafka
+    networks:
+      - kafka_network
+networks:
+  kafka_network:
+    
 ```
