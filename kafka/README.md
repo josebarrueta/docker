@@ -25,6 +25,17 @@ The server runs with a defined `kafka` user.
 
 This is an example of how to use the image in a `docker-compose` file.
 
+Configurable environment variables:
+
+- `KAFKA_SERVER_NODE_ID` - The node ID associated with the roles this process is playing when `process.roles` is non-empty. Every node in a KRaft cluster must have a unique `node.id`, 
+this includes broker and controller nodes. This is required configuration when running in KRaft mode
+- `KAFKA_SERVER_PROCESS_ROLES` - The roles that this process plays: 'broker', 'controller', or 'broker,controller' if it is both
+- `KAFKA_BROKER_PORT` - Listener Port for the broker
+- `KAFKA_CONTROLLER_PORT` - Listener Port for the broker
+
+
+Reference [Apache Kafka](https://kafka.apache.org/documentation.html#brokerconfigs)
+
 ```
 version: '3.7'
 
@@ -39,6 +50,8 @@ services
       KAFKA_SERVER_NODE_ID: 1
       KAFKA_SERVER_PROCESS_ROLES: broker,controller
       KAFKA_SERVER_DEFAULT_PARTITIONS: 2
+      KAFKA_BROKER_PORT: 9092
+      KAFKA_CONTROLLER_PORT: 9093
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka_1:9093,2@kafka_2:9093
     ports:
       - "9092:9092"
