@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # copy the template files into the config directory with the actual values from the environment.
+set -x
 
 mkdir -p $KAFKA_HOME/config
 
@@ -15,7 +16,6 @@ cp /usr/tmp/log4j.properties $KAFKA_HOME/config/
 #eval "echo \"$(sed 's/"/\\"/g' /usr/tmp/tools-log4j.properties)\"" > $KAFKA_HOME/config/tools-log4j.properties
 cp /usr/tmp/tools-log4j.properties $KAFKA_HOME/config/
 
-set -x
 
 export KAFKA_CLUSTER_ID=${KAFKA_CLUSTER_ID:-$($KAFKA_HOME/bin/kafka-storage.sh random-uuid)}
 
