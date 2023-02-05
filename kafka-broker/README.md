@@ -8,18 +8,15 @@ The server runs with a defined `kafka` user.
 
 To build an image you need to install [docker](https://docs.docker.com/desktop/).
 
-
 # Build process 
  
 To build the image it is needed to run the `docker build` command, for example:
 
 ```shell
-docker build . -t josebarrueta/kafka:<version> 
+docker build . -t <docker_hub_username>/kafka-broker:<version> 
 ```
 
-
 The server runs with a defined `kafka` user. 
-
 
 # Running the docker container
 
@@ -42,7 +39,7 @@ version: '3.7'
 services
   kafka_1:
     container_name: kafka_1
-    image: josebarrueta/kafka:3.3.2
+    image: josebarrueta/kafka-broker:3.3.2
     hostname: kafka_1
     restart: always
     environment:
