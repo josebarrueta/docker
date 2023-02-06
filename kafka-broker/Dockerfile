@@ -6,7 +6,7 @@ COPY template/ /usr/tmp
 # Download kafka tar file, extract it, create new user/group, then give ownership of 
 # the kakfa files to the new user
 
-RUN chown $USERNAME:$GROUPNAME /usr/local/bin/entrypoint.sh \
+RUN chown $KAFKA_USERNAME:$KAFKA_GROUPNAME /usr/local/bin/entrypoint.sh \
     && chmod +x /usr/local/bin/entrypoint.sh
 
 WORKDIR $KAFKA_HOME

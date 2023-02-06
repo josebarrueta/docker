@@ -7,9 +7,10 @@ COPY template/ /usr/tmp
 COPY plugins/ $KAFKA_HOME/libs
 
 # Change the owner of the copied files to kafka user
-RUN chown $USERNAME:$GROUPNAME /usr/local/bin/entrypoint.sh \
-     && chown $USERNAME:$GROUPNAME $KAFKA_HOME/libs \
-     && chmod +x /usr/local/bin/entrypoint.sh
+
+RUN chown $KAFKA_USERNAME:$KAFKA_GROUPNAME /usr/local/bin/entrypoint.sh \
+    && chown -R $KAFKA_USERNAME:$KAFKA_GROUPNAME $KAFKA_HOME/libs/ \
+    && chmod +x /usr/local/bin/entrypoint.sh
 
 WORKDIR $KAFKA_HOME
 USER $KAFKA_USERNAME
