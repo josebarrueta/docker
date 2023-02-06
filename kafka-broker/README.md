@@ -54,7 +54,7 @@ services
       - "9092:9092"
       - "9093:9093"
     volumes:
-      - ./kafka/1/volume_data:/var/log/kafka
+      - ./kafka-broker/1/volume_data:/var/log/kafka
     networks:
      - kafka_network
   kafka_2:
@@ -72,7 +72,7 @@ services
       - "9094:9092"
       - "9095:9093"
     volumes:
-      - ./kafka/2/volume_data:/var/log/kafka
+      - ./kafka-broker/2/volume_data:/var/log/kafka
     networks:
       - kafka_network
 networks:

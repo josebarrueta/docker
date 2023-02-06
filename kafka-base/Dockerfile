@@ -13,7 +13,7 @@ ENV KAFKA_USERNAME=kafka
 ENV KAFKA_GROUPNAME=$KAFKA_USERNAME
 
 # Create new user and group
-RUN yum install -y gzip tar shadow-utils \
+RUN yum install -y gzip tar shadow-utils nc \
     && groupadd -g $GID $KAFKA_GROUPNAME \
     && useradd -u $UID -g $GID $KAFKA_USERNAME \
     && mkdir -p /usr/local/kafka \
