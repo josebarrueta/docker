@@ -1,4 +1,4 @@
-FROM josebarrueta/kafka-base:3.3.2
+FROM josebarrueta/kafka-base:3.4.0
 
 COPY entrypoint.sh /usr/local/bin
 COPY template/ /usr/tmp

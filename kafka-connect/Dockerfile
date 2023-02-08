@@ -1,4 +1,4 @@
-FROM josebarrueta/kafka-base:3.3.2
+FROM josebarrueta/kafka-base:3.4.0
 
 USER root
 
