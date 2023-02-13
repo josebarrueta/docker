@@ -5,6 +5,7 @@ USER root
 COPY entrypoint.sh /usr/local/bin
 COPY template/ /usr/tmp
 COPY plugins/ $KAFKA_HOME/libs
+COPY connectors/ /opt/connectors
 
 # Change the owner of the copied files to kafka user
 
