@@ -13,7 +13,7 @@ To build an image you need to install [docker](https://docs.docker.com/desktop/)
 To build the image it is needed to run the `docker build` command, for example:
 
 ```shell
-docker build . -t <docker_hub_username>/kafka-broker:<version> 
+docker build . -t signal/kafka-connect:<version> 
 ```
 
 The server runs with a defined `kafka` user.
@@ -38,7 +38,7 @@ version: '3.7'
 services
   kafka_connect_1:
     container_name: kafka_connect_1
-    image: josebarrueta/kafka-connect:3.3.2
+    image: signal/kafka-connect:3.3.2
     hostname: kafka_1
     restart: always
     environment:
